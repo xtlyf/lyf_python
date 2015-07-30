@@ -1,0 +1,16 @@
+__author__ = 'lyf'
+import  re
+test='1032771284@qq.com'
+test2='fuzlyflyffzu@163.com'
+reg = r'^(\w*.*)@(\w+).(com)$'
+if re.match(reg,test2):
+    print('ok')
+
+else:
+    print('failed')
+
+#p=re.compile(r'^([a-zA-Z0-9_.]*)@(\w+).com$')
+#if p.match(test):
+#    print('success')
+#else:
+#    print('failed')
