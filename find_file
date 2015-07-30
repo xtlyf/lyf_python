@@ -1,0 +1,11 @@
+__author__ = 'lyf'
+import os, os.path
+
+def search(path,s1):
+    for x in os.listdir(path):
+        fp = os.path.join(path, x)
+        if os.path.isfile(fp) and s1 in fp :
+            print (fp)
+        elif os.path.isdir(fp):
+            search(fp,s1)
+search('.','pn')
