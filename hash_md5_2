@@ -1,0 +1,23 @@
+__author__ = 'lyf'
+# -*- coding: utf-8 -*-
+#python3 中文处理
+import  hashlib
+db={}
+def get_md5(str):
+    md5=hashlib.md5()
+    md5.update(str.encode('utf-8'))
+    return  md5.hexdigest()
+def register(username,password):
+    db[username]=get_md5(password+username+'the-Salt')
+    print (username,'register successfully')
+
+def login(username,password):
+    if username in db:
+        if get_md5(password+username+'the-Salt')==db[username]:
+            print(username,'login successfully')
+    else:
+        print(username,'is an illegal user')
+if __name__=='__main__':
+    register('赖燕芳','123')
+    login('赖燕芳','123')
+    print('你好，赖燕芳')
