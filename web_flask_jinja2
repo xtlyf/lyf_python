@@ -1,0 +1,62 @@
+Python处理URL的函数就是C：Controller，Controller负责业务逻辑，比如检查用户名是否存在，取出用户信息等等，这里是render_template
+__author__ = 'lyf'
+from flask import  Flask,request,render_template
+app=Flask(__name__)
+
+@app.route('/',methods=['GET','POST'])
+def home():
+    return  render_template('home.html')
+@app.route('/signin',methods=['GET'])
+def signin_form():
+    return  render_template('form.html')
+
+@app.route('/signin',methods=['POST'])
+def signin():
+    username=request.form['username']
+    password=request.form['password']
+    if username=='admin'and password=='password':
+        return render_template('signin-ok.html',username=username)
+    return render_template('form.html',message='Bad username or password',username=username)
+if __name__=='__main__':
+    app.run()
+同级目录templates下的三个html文档：
+#文档home.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1 style="font-style:italic ">Home</h1>
+</body>
+</html>
+#文档form.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Please Sign In</title>
+</head>
+<body>
+  {% if message %}
+  <p style="color:red">{{ message }}</p>
+  {% endif %}
+  <form action="/signin" method="post">
+    <legend>Please sign in:</legend>
+    <p><input name="username" placeholder="Username" value="{{ username }}"></p>
+    <p><input name="password" placeholder="Password" type="password"></p>
+    <p><button type="submit">Sign In</button></p>
+  </form>
+</body>
+</html>
+#文档signin-ok.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome ,{{username}}</title>
+</head>
+<body>
+ <p>welcome,{{username}}!</p>
+</body>
+</html>
